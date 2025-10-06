@@ -1,1017 +1,210 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Primary Meta Tags -->
-    <title>Free Open Source Email Validator API 2025 - Privacy-First Email Verification | No Storage</title>
-    <meta name="title" content="Free Open Source Email Validator API 2025 - Privacy-First Email Verification | No Storage">
-    <meta name="description" content="100% Free and open source email validation API for developers and startups. Zero data storage, GDPR compliant, real-time verification. Prevent fake signups and reduce bounce rates with our privacy-focused email validator. Perfect for solopreneurs and small teams.">
-    <meta name="keywords" content="open source email validator, free email validator, email validation api, privacy focused email verification, no storage email validator, gdpr compliant email validation, email verification api free, disposable email detection, mx record verification, batch email validation, email typo detection, developer tools free, startup tools, solopreneur tools, open source email validator, real time email verification">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="English">
-    <meta name="author" content="Umut Erturk">
-    <meta name="revisit-after" content="7 days">
-    <link rel="canonical" href="https://rapid-email-verifier.fly.dev" />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rapid-email-verifier.fly.dev">
-    <meta property="og:title" content="Free Open Source Email Validator API 2025 - Privacy-First Email Verification | No Storage">
-    <meta property="og:description" content="100% Free and open source email validation API for developers and startups. Zero data storage, GDPR compliant, real-time verification. Built to support the developer community.">
-    <meta property="og:image" content="https://rapid-email-verifier.fly.dev/static/img/og-image.png">
-    <meta property="og:site_name" content="Rapid Email Validator">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rapid-email-verifier.fly.dev">
-    <meta property="twitter:title" content="Free Open Source Email Validator API 2025 - Privacy-First Email Verification">
-    <meta property="twitter:description" content="100% Free and open source email validation API for developers. Zero data storage, GDPR compliant, real-time verification. Support the community by using responsibly.">
-    <meta property="twitter:image" content="https://rapid-email-verifier.fly.dev/static/img/twitter-image.png">
-    <meta property="twitter:creator" content="@CodeOnBrew">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/static/img/favicon.png">
-    <link rel="apple-touch-icon" href="/static/img/apple-touch-icon.png">
-
-    <!-- Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Rapid Email Validator 2025",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Web",
-        "description": "100% Free and open source email validation API for developers and startups. Zero data storage, GDPR compliant, real-time verification. Perfect for solopreneurs and small teams.",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        },
-        "provider": {
-            "@type": "Organization",
-            "name": "Rapid Email Validator",
-            "url": "https://rapid-email-verifier.fly.dev"
-        },
-        "author": {
-            "@type": "Person",
-            "name": "Umut Erturk",
-            "url": "https://x.com/CodeOnBrew"
-        },
-        "keywords": "open source, email validation, email verification, free api, privacy focused, no storage, gdpr compliant",
-        "applicationCategory": "Email Tools",
-        "features": [
-            "Open Source",
-            "Email Validation",
-            "Disposable Email Detection",
-            "MX Record Verification",
-            "Typo Detection",
-            "Batch Processing",
-            "Privacy Focused"
-        ],
-        "codeRepository": "https://github.com/umuterturk/rapid-email-verifier"
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GeeksDesigns</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent:#6ee7b7;
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
     }
-    </script>
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background: linear-gradient(180deg,#071026 0%, #071827 60%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+    }
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/build.css">
-    <style>
-        :root {
-            /* Primary colors */
-            --primary: #2188ff;
-            --primary-hover: #0366d6;
-            --background: #f6f8fa;
-            --text: #24292e;
-            --text-secondary: #586069;
-            
-            /* Component colors */
-            --border-radius: 6px;
-            --spacing: 2rem;
-            --card-bg: #ffffff;
-            --border-color: #e1e4e8;
-            
-            /* Success colors (for features) */
-            --success: #28a745;
-            --success-light: #f0fff4;
-            
-            /* Gradient colors */
-            --gradient-start: #f6f8fa;
-            --gradient-end: #ffffff;
+    .card{
+      width:100%;
+      max-width:920px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid rgba(255,255,255,0.04);
+      border-radius:var(--radius);
+      padding:44px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      backdrop-filter: blur(6px);
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:28px;
+    }
 
-            /* Feature badge colors */
-            --feature-bg: #f1f8ff;
-            --feature-text: #0366d6;
-            
-            /* CTA colors */
-            --cta-primary: #2188ff;
-            --cta-hover: #0366d6;
-            --cta-text: #ffffff;
-            
-            /* Support button colors */
-            --support-bg: #ffdd00;
-            --support-text: #24292e;
-            
-            /* Social button colors */
-            --social-bg: #24292e;
-            --social-text: #ffffff;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--background);
-            color: var(--text);
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: var(--spacing);
-        }
-        
-        .hero {
-            text-align: center;
-            padding: 6rem 2rem;
-            background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-            border-radius: var(--border-radius);
-            margin-bottom: var(--spacing);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border-color);
-        }
-        
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing);
-            margin-bottom: var(--spacing);
-        }
-        
-        .feature-card {
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            background: var(--card-bg);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            border: 1px solid var(--border-color);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(149, 157, 165, 0.2);
-        }
-        
-        .feature-card h3 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        .metric {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .benefits {
-            background: var(--card-bg);
-            padding: 3rem 2rem;
-            border-radius: var(--border-radius);
-            margin-bottom: var(--spacing);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border-color);
-        }
-        
-        .benefits h2 {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--text);
-        }
-        
-        .benefits ul {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            list-style: none;
-            padding: 0;
-        }
-        
-        .benefits li {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-        }
-        
-        .benefits li::before {
-            content: "✓";
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 24px;
-            height: 24px;
-            background: var(--success-light);
-            color: var(--success);
-            border-radius: 50%;
-            font-size: 0.875rem;
-            font-weight: bold;
-        }
-        
-        .api-spec {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: var(--border-radius);
-            margin-bottom: var(--spacing);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border: 1px solid var(--border-color);
-        }
-        
-        .api-spec h2 {
-            text-align: center;
-            margin-bottom: 2rem;
-            color: var(--text);
-        }
+    .left h1{
+      margin:0 0 8px 0;
+      font-size: clamp(28px, 3.2vw, 40px);
+      line-height:1.02;
+      letter-spacing:-0.4px;
+    }
+    .lead{
+      color:var(--muted);
+      margin:0 0 22px 0;
+      font-size:15px;
+    }
 
-        .cta-button {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.2s;
-        }
+    .badge{
+      display:inline-block;
+      padding:8px 12px;
+      background:linear-gradient(90deg, rgba(110,231,183,0.12), rgba(102,126,234,0.06));
+      color:var(--accent);
+      border-radius:999px;
+      font-weight:600;
+      font-size:13px;
+      margin-bottom:14px;
+    }
 
-        .cta-button:hover {
-            background: var(--primary-hover);
-        }
-        
-        @media (max-width: 768px) {
-            .hero {
-                padding: 4rem 1rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.125rem;
-            }
-            
-            .features {
-                gap: 1rem;
-            }
-            
-            .feature-card {
-                padding: 1.5rem;
-            }
-            
-            .metric {
-                font-size: 2rem;
-            }
-            
-            .benefits {
-                padding: 2rem 1rem;
-            }
-            
-            .benefits ul {
-                grid-template-columns: 1fr;
-            }
-        }
+    .features{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .feat{
+      background:var(--glass);
+      padding:10px 12px;
+      border-radius:10px;
+      color:var(--muted);
+      font-size:13px;
+      border:1px solid rgba(255,255,255,0.02);
+    }
 
-        .hero-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            line-height: 1.6;
-        }
+    .right{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:stretch;
+      justify-content:center;
+      border:1px solid rgba(255,255,255,0.03);
+    }
 
-        .hero-features {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
+    .contact {
+      padding:14px;
+      background:rgba(255,255,255,0.02);
+      border-radius:10px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
 
-        .hero-feature {
-            color: var(--feature-text);
-            font-weight: 500;
-            background: var(--feature-bg);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 1rem;
-            border: 1px solid rgba(27, 31, 35, 0.1);
-        }
+    .email {
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+      color:#dffcf0;
+      font-weight:600;
+      font-size:14px;
+      word-break:break-all;
+    }
 
-        .hero-feature a {
-            color: var(--feature-text);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+    .btn {
+      appearance:none;
+      border:0;
+      background:linear-gradient(90deg,var(--accent), #8bd3ff 120%);
+      color:#04211a;
+      padding:10px 12px;
+      border-radius:9px;
+      font-weight:700;
+      cursor:pointer;
+      font-size:13px;
+      box-shadow: 0 6px 18px rgba(110,231,183,0.08);
+    }
 
-        .hero-feature a:hover {
-            opacity: 0.9;
-        }
+    .small{
+      font-size:13px;
+      color:var(--muted);
+      margin-top:6px;
+    }
 
-        .github-icon {
-            width: 16px;
-            height: 16px;
-            display: inline-block;
-            fill: currentColor;
-            vertical-align: middle;
-        }
+    footer{
+      grid-column:1 / -1;
+      margin-top:6px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      color:var(--muted);
+      font-size:13px;
+      gap:12px;
+      flex-wrap:wrap;
+    }
 
-        .why-free {
-            background: var(--card-bg);
-            padding: 4rem 2rem;
-            text-align: center;
-            border-radius: var(--border-radius);
-            margin-bottom: var(--spacing);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            border: 1px solid var(--border-color);
-        }
-
-        .why-free h2 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .why-free > p {
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        .trust-points {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            text-align: left;
-        }
-
-        .trust-point h3 {
-            color: var(--text);
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .trust-point p {
-            color: var(--text-secondary);
-            margin: 0;
-        }
-
-        .api-intro {
-            text-align: center;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero-features {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: center;
-            }
-
-            .trust-points {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-        }
-
-        .hero-cta {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .support-link, .twitter-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .support-link {
-            background: var(--support-bg);
-            color: var(--support-text);
-            border: 1px solid rgba(27, 31, 35, 0.1);
-        }
-
-        .twitter-link {
-            background: var(--social-bg);
-            color: var(--social-text);
-        }
-
-        .support-link:hover, .twitter-link:hover {
-            transform: translateY(-2px);
-            opacity: 0.9;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        [role="button"].contrast {
-            background: var(--cta-primary);
-            color: var(--cta-text);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            transition: all 0.2s ease-in-out;
-        }
-
-        [role="button"].contrast:hover {
-            background: var(--cta-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .feedback {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            margin-bottom: var(--spacing);
-            border: 1px solid var(--border-color);
-        }
-
-        .feedback h2 {
-            color: var(--text);
-            margin-bottom: 1rem;
-        }
-
-        .feedback-intro {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-        }
-
-        .feedback-options {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .feedback-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .feedback-link.github-link {
-            background: var(--feature-bg);
-            color: var(--feature-text);
-            border: 1px solid rgba(27, 31, 35, 0.1);
-        }
-
-        .feedback-link.twitter-link {
-            background: var(--social-bg);
-            color: var(--social-text);
-        }
-
-        .feedback-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .feedback-link .github-icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .feedback {
-                padding: 2rem 1rem;
-            }
-
-            .feedback-options {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .feedback-link {
-                justify-content: center;
-            }
-        }
-
-        /* Get Started CTA Section Styles */
-        .get-started-cta {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-            border-radius: var(--border-radius);
-            margin-bottom: var(--spacing);
-            box-shadow: 0 8px 24px rgba(33, 136, 255, 0.3);
-        }
-
-        .get-started-cta h2 {
-            color: white;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-description {
-            font-size: 1.25rem;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            opacity: 0.9;
-        }
-
-        .code-example {
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
-            display: flex;
-            align-items: stretch;
-            gap: 15px;
-        }
-
-        .email-input {
-            flex: 1;
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: white;
-            font-family: monospace;
-            font-size: 1.1rem;
-            height: 48px;
-            padding: 0 1rem;
-            border-radius: 4px;
-            outline: none;
-            transition: all 0.2s;
-            box-sizing: border-box;
-            display: block;
-        }
-
-        .email-input:focus {
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
-        }
-
-        .email-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .validate-button {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            height: 64px;
-            padding: 0 1.25rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            flex-shrink: 0;
-            box-sizing: border-box;
-            white-space: nowrap;
-        }
-
-        .validate-button:hover {
-            background: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-        }
-
-        .validate-button svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .primary-cta-button, .secondary-cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            font-size: 1.1rem;
-        }
-
-        .primary-cta-button {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .secondary-cta-button {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .primary-cta-button:hover, .secondary-cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-        }
-
-        @media (max-width: 768px) {
-            .get-started-cta {
-                padding: 3rem 1rem;
-            }
-
-            .get-started-cta h2 {
-                font-size: 2rem;
-            }
-
-            .cta-description {
-                font-size: 1.1rem;
-            }
-
-            .code-example {
-                padding: 1rem;
-                flex-direction: column;
-                gap: 10px;
-            }
-            .code-example input {
-                margin-bottom: 0px;
-            }
-
-            .code-example pre {
-                width: 100%;
-                font-size: 1rem;
-            }
-
-            .validate-button {
-                width: 100%;
-                height: 30%;
-                padding: 0.75rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .primary-cta-button, .secondary-cta-button {
-                justify-content: center;
-            }
-        }
-    </style>
+    /* Responsive */
+    @media (max-width:880px){
+      .card{grid-template-columns:1fr; padding:28px}
+      footer{justify-content:center}
+    }
+  </style>
 </head>
 <body>
-    <main class="container">
-        <section class="hero">
-            <h1>Rapid Email Validator 2025</h1>
-            <p class="hero-subtitle">A completely free and open source email validation API that never stores your data. Built to support solopreneurs and the developer community.</p>
-            <div class="hero-features">
-                <span class="hero-feature"><a href="#why-free">Why Free?</a></span>
-                <span class="hero-feature">
-                    <a href="https://github.com/umuterturk/email-verifier" target="_blank">
-                        <svg class="github-icon" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-                        </svg>
-                        Open Source
-                    </a>
-                </span>
-                <span class="hero-feature">Zero Data Storage</span>
-            </div>
-            <div class="hero-cta">
-                <a href="#api-docs" role="button" class="contrast">View API Documentation</a>
-                <a href="https://buymeacoffee.com/codeonbrew" target="_blank" class="support-link">☕ Buy me a coffee</a>
-                <a href="https://x.com/CodeOnBrew" target="_blank" class="twitter-link">𝕏 Follow me</a>
-            </div>
-        </section>
+  <main class="card" role="main" aria-labelledby="title">
+    <section class="left">
+      <div class="badge">Free · Open Source</div>
+      <h1 id="title">Email Validator</h1>
+      <p class="lead">Simple, lightweight, and self-hostable email verification service — fully open-source and free for everyone.</p>
 
-        <section class="features">
-            <div class="feature-card">
-                <h3>🛡️ Privacy First</h3>
-                <div class="metric">0 DB</div>
-                <p>Zero data storage - your emails are never saved! GDPR, CCPA, and PIPEDA compliant</p>
-            </div>
-            <div class="feature-card">
-                <h3>💎 All Features</h3>
-                <div class="metric">Free</div>
-                <p>Get the same features big companies pay thousands for, completely free and open source. Use it responsibly</p>
-            </div>
-            <div class="feature-card">
-                <h3>⚡ Lightning Fast</h3>
-                <div class="metric">25ms</div>
-                <p>Quick response times to keep your apps snappy</p>
-            </div>
-            <div class="feature-card">
-                <h3>🎳 Batch Ready</h3>
-                <div class="metric">100x</div>
-                <p>Validate up to 100 emails at once</p>
-            </div>
-            <div class="feature-card">
-                <h3>🗑️ Disposable Detection</h3>
-                <div class="metric">100%</div>
-                <p>Automatically detect temporary and disposable email addresses</p>
-            </div>
-            <div class="feature-card">
-                <h3>🔍 Deep Validation</h3>
-                <div class="metric">100%</div>
-                <p>Full domain & mailbox verification included</p>
-            </div>
-        </section>
+      <div class="features" aria-hidden="true">
+        <div class="feat">MX checks</div>
+        <div class="feat">SMTP probing</div>
+        <div class="feat">Syntax validation</div>
+        <div class="feat">Lightweight Go service</div>
+      </div>
 
-        <section class="benefits">
-            <h2>Everything You Need, Completely Free</h2>
-            <ul>
-                <li>Unlimited email validations</li>
-                <li>No credit card required</li>
-                <li>No usage limits</li>
-                <li>100% Open Source</li>
-                <li>Disposable email detection</li>
-                <li>Domain verification</li>
-                <li>MX record verification</li>
-                <li>Alias detection</li>
-                <li>Typo suggestions</li>
-                <li>Batch validation</li>
-                <li>Role detection</li>
-                <li>No data storage</li>
-                <li>No tracking</li>
-                <li>GDPR, CCPA, and PIPEDA compliant</li>
-                <li>Quick integration</li>
-                <li>Clear documentation</li>
-                <li>Simple REST API</li>
-                <li>Most up to date email hosts database</li>
-            </ul>
-        </section>
+      <p class="small">Run it locally, deploy it to Coolify, or use it within your stack. No vendor lock-in — just clean validation.</p>
+    </section>
 
-        <section class="get-started-cta">
-            <h2>Start Validating Emails Now</h2>
-            <p class="cta-description">Enter an email address and click validate to see it in action</p>
-            <div class="code-example">
-                <input type="email" id="email-input" placeholder="user@example.com" value="user@example.com" class="email-input">
-                <button class="validate-button" onclick="validateEmail()" aria-label="Validate">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="9 11 12 14 22 4"></polyline>
-                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                    </svg>
-                    Validate
-                </button>
-            </div>
-            <div class="cta-buttons">
-                <a href="#api-docs" class="primary-cta-button">Get API Documentation</a>
-                <a href="https://github.com/umuterturk/email-verifier" target="_blank" class="secondary-cta-button">
-                    <svg class="github-icon" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-                    </svg>
-                    View Source Code
-                </a>
-            </div>
-        </section>
+    <aside class="right" aria-labelledby="contact-heading">
+      <div>
+        <h2 id="contact-heading" style="margin:0 0 6px 0;">Contact</h2>
+        <p style="margin:0;color:var(--muted);font-size:14px">For enquiries, email:</p>
+      </div>
 
-        <section class="why-free" id="why-free">
-            <h2>Why Is This Free & Open Source?</h2>
-            <p>As a fellow developer, I understand the challenges solopreneurs and small teams face. Not everyone can afford expensive email validation services, yet everyone deserves access to reliable tools. This service is my contribution to the developer community - completely free and open source, with no strings attached. Use it respectfully, and if you find it valuable, consider supporting the project with a coffee! ☕</p>
-            <div class="trust-points">
-                <div class="trust-point">
-                    <h3>🤝 Community First</h3>
-                    <p>Built by developers, for developers. Open source, no corporate interests, just genuine community support.</p>
-                </div>
-                <div class="trust-point">
-                    <h3>🔒 Privacy Focused</h3>
-                    <p>We never store your email addresses. Your data is processed in memory and immediately discarded.</p>
-                </div>
-                <div class="trust-point">
-                    <h3>💝 Support If You Can</h3>
-                    <p>This service runs on love for the community and coffee. Buy me a coffee if you find it useful!</p>
-                </div>
-            </div>
-        </section>
+      <div class="contact" role="region" aria-label="contact email">
+        <div class="email" id="emailText">email-verification-api@geeksdesigns.com</div>
+        <button class="btn" id="copyBtn" title="Copy email">Copy</button>
+      </div>
+    </aside>
 
-        <section class="api-spec" id="api-docs">
-            <h2>Simple API Documentation</h2>
-            <p class="api-intro">Just two endpoints. No authentication required. Start validating emails in minutes.</p>
-            <div id="swagger-ui"></div>
-        </section>
+    <footer>
+      © <span id="year"></span> GeeksDesigns
+    </footer>
+  </main>
 
-        <section class="feedback">
-            <h2>Feedback Welcome! 🙌</h2>
-            <p class="feedback-intro">Your feedback helps make this tool better for everyone in the community.</p>
-            <div class="feedback-options">
-                <a href="https://github.com/umuterturk/email-verifier/issues" target="_blank" class="feedback-link github-link">
-                    <svg class="github-icon" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
-                    </svg>
-                    Report Issues or Suggest Features
-                </a>
-                <a href="https://x.com/CodeOnBrew" target="_blank" class="feedback-link twitter-link">
-                    𝕏 Message me on X
-                </a>
-            </div>
-        </section>
+  <script>
+    // Copy button logic
+    const copyBtn = document.getElementById('copyBtn');
+    const emailText = document.getElementById('emailText').textContent.trim();
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(emailText);
+        copyBtn.textContent = 'Copied!';
+        setTimeout(()=> copyBtn.textContent = 'Copy', 1800);
+      } catch (e) {
+        const ta = document.createElement('textarea');
+        ta.value = emailText;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        ta.remove();
+        copyBtn.textContent = 'Copied!';
+        setTimeout(()=> copyBtn.textContent = 'Copy', 1800);
+      }
+    });
 
-        <footer>
-            <p>© Rapid Email Validator 2025. All rights reserved.</p>
-        </footer>
-    </main>
-
-    <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
-    <script>
-        const spec = {
-            "openapi": "3.1.0",
-            "info": {
-                "title": "Rapid Email Validator 2025 API",
-                "description": "API for validating email addresses, checking for disposable domains, and providing typo suggestions. Supports both single and batch validation.",
-                "version": "1.0.0",
-                "contact": {
-                    "name": "Rapid Email Validator 2025 Support"
-                }
-            },
-            "servers": [
-                {
-                    "url": "/api",
-                    "description": "API Server"
-                }
-            ],
-            "paths": {
-                "/validate": {
-                    "get": {
-                        "summary": "Validate a single email address",
-                        "description": "Validates an email address and returns detailed information about its validity",
-                        "parameters": [
-                            {
-                                "name": "email",
-                                "in": "query",
-                                "required": true,
-                                "schema": {
-                                    "type": "string",
-                                    "format": "email"
-                                }
-                            }
-                        ],
-                        "responses": {
-                            "200": {
-                                "description": "Successful validation",
-                                "content": {
-                                    "application/json": {
-                                        "schema": {
-                                            "type": "object",
-                                            "properties": {
-                                                "is_valid": {
-                                                    "type": "boolean"
-                                                },
-                                                "is_disposable": {
-                                                    "type": "boolean"
-                                                },
-                                                "has_mx_record": {
-                                                    "type": "boolean"
-                                                },
-                                                "suggestion": {
-                                                    "type": "string",
-                                                    "nullable": true
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                "/validate/batch": {
-                    "post": {
-                        "summary": "Validate multiple email addresses",
-                        "description": "Validates multiple email addresses in a single request",
-                        "requestBody": {
-                            "required": true,
-                            "content": {
-                                "application/json": {
-                                    "schema": {
-                                        "type": "object",
-                                        "required": ["emails"],
-                                        "properties": {
-                                            "emails": {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "string",
-                                                    "format": "email"
-                                                },
-                                                "maxItems": 100,
-                                                "example": ["user1@example.com", "user2@example.com"]
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "responses": {
-                            "200": {
-                                "description": "Successful batch validation"
-                            }
-                        }
-                    }
-                }
-            }
-        };
-
-        window.onload = () => {
-            SwaggerUIBundle({
-                spec: spec,
-                dom_id: '#swagger-ui',
-                deepLinking: true,
-                presets: [
-                    SwaggerUIBundle.presets.apis,
-                    SwaggerUIBundle.SwaggerUIStandalonePreset
-                ],
-                layout: "BaseLayout",
-                docExpansion: "list",
-                defaultModelsExpandDepth: -1,
-                displayRequestDuration: true,
-                filter: true,
-                tryItOutEnabled: true
-            });
-
-            // Add event listener for Enter key on email input
-            document.getElementById('email-input').addEventListener('keypress', function(event) {
-                if (event.key === 'Enter') {
-                    validateEmail(this);
-                }
-            });
-        };
-
-        // Function to copy code to clipboard
-        function copyToClipboard(button) {
-            const codeElement = button.previousElementSibling.querySelector('code');
-            const textToCopy = codeElement.textContent;
-            
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                // Change button text temporarily
-                const originalText = button.textContent;
-                button.textContent = 'Copied!';
-                
-                // Reset button text after 2 seconds
-                setTimeout(() => {
-                    button.textContent = originalText;
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy: ', err);
-            });
-        }
-
-        function validateEmail() {
-            const emailInput = document.getElementById('email-input');
-            const email = emailInput.value.trim();
-            
-            if (email) {
-                window.open(`https://rapid-email-verifier.fly.dev/api/validate?email=${encodeURIComponent(email)}`, '_blank');
-            } else {
-                emailInput.focus();
-            }
-        }
-    </script>
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
-</html> 
+</html>
