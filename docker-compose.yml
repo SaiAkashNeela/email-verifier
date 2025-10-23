@@ -9,6 +9,22 @@ services:
     depends_on:
       - prometheus
       - redis
+    networks:
+      - app-network
+
+  proxy-validator-service:
+    build: ./proxy-validator-service
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - GO_VALIDATOR_API_URL=http://email-validator:8080/api/validate
+      - DISPOSABLE_DOMAINS_URL=${DISPOSABLE_DOMAINS_URL}
+      - REFRESH_INTERVAL_HOURS=${REFRESH_INTERVAL_HOURS}
+    depends_on:
+      - email-validator
+    networks:
+      - app-network
 
   redis:
     image: redis:alpine
@@ -17,6 +33,8 @@ services:
     volumes:
       - redis-data:/data
     command: redis-server --appendonly yes
+    networks:
+      - app-network
 
   prometheus:
     image: prom/prometheus:latest
@@ -29,6 +47,8 @@ services:
       - '--storage.tsdb.path=/prometheus'
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
+    networks:
+      - app-network
 
   grafana:
     image: grafana/grafana:latest
@@ -41,7 +61,13 @@ services:
       - grafana-storage:/var/lib/grafana
     depends_on:
       - prometheus
+    networks:
+      - app-network
 
 volumes:
   grafana-storage: {}
-  redis-data: {} 
+  redis-data: {}
+
+networks:
+  app-network:
+    driver: bridge
