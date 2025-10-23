@@ -9,8 +9,10 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const GO_VALIDATOR_API_URL = process.env.GO_VALIDATOR_API_URL || 'http://localhost:8080/api/validate';
 const DISPOSABLE_DOMAINS_URL = process.env.DISPOSABLE_DOMAINS_URL || 'https://raw.githubusercontent.com/disposable-email-domains/disposable-email-domains/refs/heads/main/disposable_email_blocklist.conf';
+const REFRESH_INTERVAL_HOURS = parseInt(process.env.REFRESH_INTERVAL_HOURS || '24', 10);
 
 let disposableDomains = new Set();
+let lastLoadedTimestamp = 0; // Timestamp of the last successful load
 
 // Function to load disposable domains from the external blocklist
 async function loadDisposableDomains() {
@@ -20,7 +22,8 @@ async function loadDisposableDomains() {
         // Split by newline, trim whitespace, filter out empty lines and comments
         const domains = response.data.split('\n').map(d => d.trim()).filter(d => d.length > 0 && !d.startsWith('#'));
         disposableDomains = new Set(domains);
-        console.log(`Loaded ${disposableDomains.size} disposable domains.`);
+        lastLoadedTimestamp = Date.now(); // Update timestamp on successful load
+        console.log(`Loaded ${disposableDomains.size} disposable domains. Next refresh in ${REFRESH_INTERVAL_HOURS} hours.`);
     } catch (error) {
         console.error('Failed to load disposable domains:', error.message);
         // In a production environment, you might want to implement retry logic or
@@ -31,6 +34,18 @@ async function loadDisposableDomains() {
 
 // Load domains on service startup
 loadDisposableDomains();
+
+// Set up periodic refresh for disposable domains
+setInterval(() => {
+    const now = Date.now();
+    const timeSinceLastLoad = now - lastLoadedTimestamp;
+    const refreshThreshold = REFRESH_INTERVAL_HOURS * 60 * 60 * 1000; // Convert hours to milliseconds
+
+    if (timeSinceLastLoad >= refreshThreshold) {
+        console.log(`Refreshing disposable domains blocklist after ${REFRESH_INTERVAL_HOURS} hours.`);
+        loadDisposableDomains();
+    }
+}, 60 * 60 * 1000); // Check every hour if a refresh is due
 
 // Middleware to parse JSON requests
 app.use(express.json());
