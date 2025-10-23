@@ -1,75 +1,64 @@
-// Package main is the entry point for the email validator service.
-// It initializes and starts the HTTP server, sets up monitoring, and manages the service lifecycle.
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"time"
 
 	"emailvalidator/internal/api"
-	"emailvalidator/internal/service"
-	"emailvalidator/pkg/monitoring"
+	"emailvalidator/pkg/validator"
+	// Add any other imports your original main.go might have
 )
 
 func main() {
-	// Create service instances
-	emailService, err := service.NewEmailService()
-	if err != nil {
-		log.Fatalf("Failed to initialize email service: %v", err)
+	log.Println("Starting Email Validator Service...")
+
+	// --- New: Initialize and load external disposable checker ---
+	externalDisposableChecker := validator.NewExternalDisposableChecker()
+	if err := externalDisposableChecker.LoadDisposableDomains(); err != nil {
+		log.Printf("Error loading external disposable domains: %v. Continuing without external disposable checks.", err)
+	} else {
+		log.Printf("Successfully loaded external disposable domains. Last updated: %s", externalDisposableChecker.GetLastUpdated().Format(time.RFC3339))
 	}
 
-	// Create and configure HTTP handler
-	handler := api.NewHandler(emailService)
-
-	// Create final mux for all routes
-	finalMux := http.NewServeMux()
-
-	// Register static file server first
-	fs := http.FileServer(http.Dir("static"))
-	finalMux.Handle("/static/", http.StripPrefix("/static/", fs))
-
-	// Serve index.html at the root
-	finalMux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/" {
-			http.ServeFile(w, r, "static/index.html")
-			return
+	// Optional: Periodically refresh the disposable domains list
+	go func() {
+		ticker := time.NewTicker(24 * time.Hour) // Refresh every 24 hours
+		defer ticker.Stop()
+		for range ticker.C {
+			log.Println("Attempting to refresh external disposable domains list...")
+			if err := externalDisposableChecker.LoadDisposableDomains(); err != nil {
+				log.Printf("Error refreshing external disposable domains: %v", err)
+			} else {
+				log.Printf("Successfully refreshed external disposable domains. Last updated: %s", externalDisposableChecker.GetLastUpdated().Format(time.RFC3339))
+			}
 		}
-		fs.ServeHTTP(w, r)
-	})
+	}()
+	// --- End New ---
 
-	// Register API endpoints with monitoring
-	apiMux := http.NewServeMux()
-	apiMux.HandleFunc("/validate", handler.HandleValidate)
-	apiMux.HandleFunc("/validate/batch", handler.HandleBatchValidate)
-	apiMux.HandleFunc("/typo-suggestions", handler.HandleTypoSuggestions)
-	apiMux.HandleFunc("/status", handler.HandleStatus)
-
-	// Wrap API routes with monitoring
-	monitoredHandler := monitoring.MetricsMiddleware(apiMux)
-	finalMux.Handle("/api/", http.StripPrefix("/api", monitoredHandler))
-
-	// Register metrics endpoint
-	finalMux.Handle("/metrics", monitoring.MetricsMiddleware(monitoring.PrometheusHandler()))
-
-	// Start server
+	// Default port
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
-	log.Printf("Starting server on :%s", port)
 
-	srv := &http.Server{
-		Addr:              ":" + port,
-		Handler:           finalMux,
-		ReadTimeout:       5 * time.Second,
-		WriteTimeout:      10 * time.Second,
-		IdleTimeout:       120 * time.Second,
-		ReadHeaderTimeout: 2 * time.Second,
-	}
+	// --- New: Register the new handler ---
+	http.HandleFunc("/api/check-disposable", api.NewCheckExternalDisposableHandler(externalDisposableChecker))
+	// --- End New ---
 
-	if err := srv.ListenAndServe(); err != nil {
-		log.Fatalf("Server failed: %v", err)
+	// Placeholder for other existing handler registrations if any.
+	// Example:
+	// http.HandleFunc("/api/validate", someExistingValidationHandler)
+	// http.HandleFunc("/api/validate/batch", someExistingBatchHandler)
+	// http.HandleFunc("/api/typo-suggestions", someExistingTypoHandler)
+	// http.HandleFunc("/api/status", someExistingStatusHandler)
+
+	// Start the server
+	log.Printf("Server listening on :%s", port)
+	err := http.ListenAndServe(":"+port, nil) // Assuming nil handler for DefaultServeMux
+	if err != nil {
+		log.Fatalf("Server failed to start: %v", err)
 	}
 }

@@ -204,6 +204,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIStatus'
 
+  /check-disposable:
+    post:
+      summary: Check if an email domain is on an external disposable list
+      description: Checks if the domain of the provided email address is present in a known external list of disposable email providers.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExternalDisposableCheckRequest'
+      responses:
+        '200':
+          description: Successful check
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExternalDisposableCheckResponse'
+        '400':
+          description: Invalid request (e.g., missing email, invalid format)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '429':
+          description: Too many requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 components:
   schemas:
     ValidationResult:
@@ -332,4 +362,28 @@ components:
       properties:
         error:
           type: string
-          description: Error message describing what went wrong 
+          description: Error message describing what went wrong
+    
+    ExternalDisposableCheckRequest:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+          description: The email address to check for disposable domain.
+
+    ExternalDisposableCheckResponse:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          description: The original email address.
+        is_disposable:
+          type: boolean
+          description: True if the email's domain is found in the external disposable list, false otherwise.
+        error:
+          type: string
+          description: Error message if the request failed.
