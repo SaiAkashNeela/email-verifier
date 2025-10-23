@@ -85,12 +85,16 @@ app.get('/proxy-validate', async (req, res) => {
             }
         }
 
+        // Determine the simple boolean result
+        const result = (finalStatus === 'VALID' || finalStatus === 'PROBABLY_VALID');
+
         // 3. Return the combined result
         res.json({
             email: email,
             originalValidation: originalValidationResult,
             isDisposableByExternalBlocklist: isDisposableByExternalBlocklist,
-            finalStatus: finalStatus
+            finalStatus: finalStatus,
+            RESULT: result // Added the new RESULT field
         });
 
     } catch (error) {
@@ -100,14 +104,21 @@ app.get('/proxy-validate', async (req, res) => {
             // that falls out of the range of 2xx (e.g., 400, 500 from Go API)
             res.status(error.response.status).json({
                 error: `Error from upstream validator: ${error.response.data.error || error.response.statusText}`,
-                details: error.response.data
+                details: error.response.data,
+                RESULT: false // Set RESULT to false on error
             });
         } else if (error.request) {
             // The request was made but no response was received (e.g., Go API is down)
-            res.status(500).json({ error: 'No response from upstream validator service. Is it running?' });
+            res.status(500).json({ 
+                error: 'No response from upstream validator service. Is it running?',
+                RESULT: false // Set RESULT to false on error
+            });
         } else {
             // Something happened in setting up the request that triggered an Error
-            res.status(500).json({ error: `Internal server error in proxy service: ${error.message}` });
+            res.status(500).json({ 
+                error: `Internal server error in proxy service: ${error.message}`,
+                RESULT: false // Set RESULT to false on error
+            });
         }
     }
 });
