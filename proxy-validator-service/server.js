@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3001;
 const GO_VALIDATOR_API_URL = process.env.GO_VALIDATOR_API_URL || 'http://localhost:8080/api/validate';
 const DISPOSABLE_DOMAINS_URL = process.env.DISPOSABLE_DOMAINS_URL || 'https://raw.githubusercontent.com/disposable-email-domains/disposable-email-domains/refs/heads/main/disposable_email_blocklist.conf';
 const REFRESH_INTERVAL_HOURS = parseInt(process.env.REFRESH_INTERVAL_HOURS || '24', 10);
+const API_KEYS = process.env.API_KEYS ? process.env.API_KEYS.split(',').map(key => key.trim()) : []; // New: Read API keys
 
 let disposableDomains = new Set();
 let lastLoadedTimestamp = 0; // Timestamp of the last successful load
@@ -95,6 +96,14 @@ function getDomainFromEmail(email) {
 
 // New API endpoint for proxy validation
 app.get('/proxy-validate', async (req, res) => {
+    // New: API Key authentication
+    if (API_KEYS.length > 0) { // Only enforce if API_KEYS are configured
+        const clientApiKey = req.headers['x-api-key'] || req.query.api_key;
+        if (!clientApiKey || !API_KEYS.includes(clientApiKey)) {
+            return res.status(403).json({ error: 'Forbidden: Invalid or missing API Key.' });
+        }
+    }
+
     const { email } = req.query;
 
     if (!email) {
@@ -163,4 +172,9 @@ app.listen(PORT, () => {
     console.log(`Proxy validator service listening on port ${PORT}`);
     console.log(`Configured Go Validator API URL: ${GO_VALIDATOR_API_URL}`);
     console.log(`Configured Disposable Domains Blocklist URL: ${DISPOSABLE_DOMAINS_URL}`);
+    if (API_KEYS.length > 0) {
+        console.log(`API Key authentication is ENABLED for /proxy-validate.`);
+    } else {
+        console.log(`API Key authentication is DISABLED for /proxy-validate (no API_KEYS configured).`);
+    }
 });

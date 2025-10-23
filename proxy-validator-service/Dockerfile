@@ -26,6 +26,7 @@ ENV PORT=3001
 ENV GO_VALIDATOR_API_URL=http://email-validator:8080/api/validate
 ENV DISPOSABLE_DOMAINS_URL=https://raw.githubusercontent.com/disposable-email-domains/disposable-email-domains/refs/heads/main/disposable_email_blocklist.conf
 ENV REFRESH_INTERVAL_HOURS=24
+ENV API_KEYS="" # New: Default empty API_KEYS
 
 # Run the application
 CMD [ "node", "server.js" ]

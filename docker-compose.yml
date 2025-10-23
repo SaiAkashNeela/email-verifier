@@ -23,6 +23,7 @@ services:
       - GO_VALIDATOR_API_URL=http://email-validator:8080/api/validate
       - DISPOSABLE_DOMAINS_URL=${DISPOSABLE_DOMAINS_URL}
       - REFRESH_INTERVAL_HOURS=${REFRESH_INTERVAL_HOURS}
+      - API_KEYS=${API_KEYS} # New: Pass API_KEYS from host environment
     depends_on:
       - email-validator
     networks:
