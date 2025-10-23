@@ -93,6 +93,7 @@ app.get('/proxy-validate', async (req, res) => {
             email: email,
             originalValidation: originalValidationResult,
             isDisposableByExternalBlocklist: isDisposableByExternalBlocklist,
+            lastRefreshed: lastLoadedTimestamp > 0 ? new Date(lastLoadedTimestamp).toISOString() : 'Not yet refreshed',
             finalStatus: finalStatus,
             RESULT: result // Added the new RESULT field
         });
