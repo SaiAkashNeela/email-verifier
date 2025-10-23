@@ -1,0 +1,1 @@
+curl "http://localhost:2002/proxy-validate?email=test@example.com"
