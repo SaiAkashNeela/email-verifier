@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const dotenv = require('dotenv');
 const path = require('path');
+const cors = require('cors'); // Import the cors package
 
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
@@ -81,6 +82,9 @@ setInterval(() => {
 
 // Middleware to parse JSON requests
 app.use(express.json());
+
+// Enable CORS for all origins
+app.use(cors());
 
 // Serve static files from the 'static' directory at the project root
 app.use(express.static(path.join(__dirname, '..', 'static')));
