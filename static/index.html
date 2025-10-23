@@ -133,7 +133,7 @@
       background: #1e293b; /* A slightly darker background for code */
       padding: 15px;
       border-radius: 8px;
-      margin-top: 20px;
+      margin-top: 10px; /* Reduced margin-top for closer blocks */
       overflow-x: auto; /* For horizontal scrolling on small screens */
       font-size: 14px;
       line-height: 1.4;
@@ -190,6 +190,11 @@
           <pre><code>curl -X GET "http://localhost:2002/proxy-validate?email=test@example.com" \
      -H "X-API-Key: <span style="color: var(--accent);">your_secret_key_1</span>"</code></pre>
         </div>
+        <p style="margin:15px 0 10px 0; color:var(--muted); font-size:14px;">Alternatively, you can pass the API key as a query parameter:</p>
+        <div class="code-block">
+          <pre><code>curl -X GET "http://localhost:2002/proxy-validate?email=test@example.com&api_key=<span style="color: var(--accent);">your_secret_key_1</span>"</code></pre>
+        </div>
+        <p style="margin:15px 0 0 0; color:var(--muted); font-size:13px;"><strong>Note:</strong> API key authentication is enabled if the <code>API_KEYS</code> environment variable is configured in the proxy service.</p>
       </div>
     </section>
 
