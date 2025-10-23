@@ -14,6 +14,37 @@ const REFRESH_INTERVAL_HOURS = parseInt(process.env.REFRESH_INTERVAL_HOURS || '2
 let disposableDomains = new Set();
 let lastLoadedTimestamp = 0; // Timestamp of the last successful load
 
+// Helper function to format date into a human-readable string
+function formatTimestamp(timestamp) {
+    if (timestamp === 0) {
+        return 'Not yet refreshed';
+    }
+    const date = new Date(timestamp);
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const day = date.getDate();
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+
+    let daySuffix;
+    if (day > 3 && day < 21) daySuffix = 'th';
+    else {
+        switch (day % 10) {
+            case 1:  daySuffix = 'st'; break;
+            case 2:  daySuffix = 'nd'; break;
+            case 3:  daySuffix = 'rd'; break;
+            default: daySuffix = 'th';
+        }
+    }
+
+    return `${day}${daySuffix} ${month} ${year} at ${hours}:${minutesStr} ${ampm}`;
+}
+
 // Function to load disposable domains from the external blocklist
 async function loadDisposableDomains() {
     try {
@@ -93,7 +124,7 @@ app.get('/proxy-validate', async (req, res) => {
             email: email,
             originalValidation: originalValidationResult,
             isDisposableByExternalBlocklist: isDisposableByExternalBlocklist,
-            lastRefreshed: lastLoadedTimestamp > 0 ? new Date(lastLoadedTimestamp).toISOString() : 'Not yet refreshed',
+            lastRefreshed: formatTimestamp(lastLoadedTimestamp), // Use the new formatting function
             finalStatus: finalStatus,
             RESULT: result // Added the new RESULT field
         });
