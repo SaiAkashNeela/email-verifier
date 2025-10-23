@@ -81,6 +81,9 @@ setInterval(() => {
 // Middleware to parse JSON requests
 app.use(express.json());
 
+// Serve static files from the 'static' directory at the project root
+app.use(express.static(path.join(__dirname, '..', 'static')));
+
 // Helper function to extract the domain from an email address
 function getDomainFromEmail(email) {
     const parts = email.split('@');
