@@ -13,7 +13,9 @@ services:
       - app-network
 
   proxy-validator-service:
-    build: ./proxy-validator-service
+    build:
+      context: . # Set the build context to the project root
+      dockerfile: ./proxy-validator-service/Dockerfile # Specify the Dockerfile path
     ports:
       - "2002:3001"
     environment:
